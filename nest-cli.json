@@ -63,6 +63,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/store_categories/tsconfig.app.json"
       }
+    },
+    "picks": {
+      "type": "application",
+      "root": "apps/picks",
+      "entryFile": "main",
+      "sourceRoot": "apps/picks/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/picks/tsconfig.app.json"
+      }
     }
   }
 }
