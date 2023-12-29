@@ -38,3 +38,10 @@ services:
       - name: store_categories-route
         paths:
           - /store_categories
+
+  - name: picks-service
+    url: http://host.docker.internal:3060
+    routes:
+      - name: picks-route
+        paths:
+          - /picks
