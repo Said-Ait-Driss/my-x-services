@@ -31,3 +31,10 @@ services:
       - name: contact_infos-route
         paths:
           - /contact_infos
+
+  - name: store_categories-service
+    url: http://host.docker.internal:3050
+    routes:
+      - name: store_categories-route
+        paths:
+          - /store_categories
