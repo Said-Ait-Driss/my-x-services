@@ -99,6 +99,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/picks_order/tsconfig.app.json"
       }
+    },
+    "orders_delivery": {
+      "type": "application",
+      "root": "apps/orders_delivery",
+      "entryFile": "main",
+      "sourceRoot": "apps/orders_delivery/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/orders_delivery/tsconfig.app.json"
+      }
     }
   }
 }
