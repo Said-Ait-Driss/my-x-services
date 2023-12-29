@@ -54,6 +54,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/contact_infos/tsconfig.app.json"
       }
+    },
+    "store_categories": {
+      "type": "application",
+      "root": "apps/store_categories",
+      "entryFile": "main",
+      "sourceRoot": "apps/store_categories/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/store_categories/tsconfig.app.json"
+      }
     }
   }
 }
