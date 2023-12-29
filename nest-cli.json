@@ -45,6 +45,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/headquarter/tsconfig.app.json"
       }
+    },
+    "contact_infos": {
+      "type": "application",
+      "root": "apps/contact_infos",
+      "entryFile": "main",
+      "sourceRoot": "apps/contact_infos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/contact_infos/tsconfig.app.json"
+      }
     }
   }
 }
