@@ -19,3 +19,15 @@ services:
       - name: store-route
         paths:
           - /store
+  - name: headquarter-service
+    url: http://host.docker.internal:3030
+    routes:
+      - name: headquarter-route
+        paths:
+          - /headquarter
+  - name: contact_infos-service
+    url: http://host.docker.internal:3040
+    routes:
+      - name: contact_infos-route
+        paths:
+          - /contact_infos

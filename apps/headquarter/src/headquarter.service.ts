@@ -1,4 +1,4 @@
-import { Injectable , Logger } from '@nestjs/common';
+import { Injectable , Logger, NotFoundException } from '@nestjs/common';
 import { CreateHeadquarterDTO } from './headquarter.dto';
 import { Headquarter } from './headquarter.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,10 +18,16 @@ export class HeadquarterService {
   }
 
   async findOne(query: any): Promise<Headquarter> {
-    return await this.headquarterRepository
+    const result = await this.headquarterRepository
       .createQueryBuilder('headquarter')
       .where(query) // Apply the query conditions
       .getOne();
+
+
+      if(!result){
+        throw new NotFoundException(`contact infos with this id not found `);
+      }
+        return result
   }
 
 
