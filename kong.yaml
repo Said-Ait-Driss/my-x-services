@@ -59,3 +59,10 @@ services:
       - name: orders-route
         paths:
           - /orders
+
+  - name: picks_order-service
+    url: http://host.docker.internal:3090
+    routes:
+      - name: picks_order-route
+        paths:
+          - /picks_order
