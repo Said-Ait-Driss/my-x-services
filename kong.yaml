@@ -66,3 +66,10 @@ services:
       - name: picks_order-route
         paths:
           - /picks_order
+
+  - name: orders_delivery-service
+    url: http://host.docker.internal:4000
+    routes:
+      - name: orders_delivery-route
+        paths:
+          - /orders_delivery
