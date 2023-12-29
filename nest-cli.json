@@ -90,6 +90,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/orders/tsconfig.app.json"
       }
+    },
+    "picks_order": {
+      "type": "application",
+      "root": "apps/picks_order",
+      "entryFile": "main",
+      "sourceRoot": "apps/picks_order/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/picks_order/tsconfig.app.json"
+      }
     }
   }
 }
