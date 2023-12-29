@@ -52,3 +52,10 @@ services:
       - name: offers-route
         paths:
           - /offers
+
+  - name: orders-service
+    url: http://host.docker.internal:3080
+    routes:
+      - name: orders-route
+        paths:
+          - /orders
