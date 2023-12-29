@@ -33,11 +33,11 @@ export class OffersService {
   }
 
   async getPickOffers(pick_id: ValidObjectIdDTO): Promise<Offers[]> {
-    // if (!isValidObjectId(pick_id)) {
-    //   throw new NotFoundException(
-    //     `no offer of this pick id ${pick_id} found !`,
-    //   );
-    // }
+    if (!isValidObjectId(pick_id)) {
+      throw new NotFoundException(
+        `no offer of this pick id ${pick_id} found !`,
+      );
+    }
 
     const result = await this.OffersModel.find({
       picks_id: pick_id,
