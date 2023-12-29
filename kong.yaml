@@ -45,3 +45,10 @@ services:
       - name: picks-route
         paths:
           - /picks
+
+  - name: offers-service
+    url: http://host.docker.internal:3070
+    routes:
+      - name: offers-route
+        paths:
+          - /offers
