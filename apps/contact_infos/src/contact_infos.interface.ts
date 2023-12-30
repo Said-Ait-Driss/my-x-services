@@ -5,4 +5,5 @@ export interface Contact_infosInterface {
     email: string;
     adress: string;
     city: string;
+    tel: string;
 }

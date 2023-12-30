@@ -26,6 +26,9 @@ import {
     @Column()
     city: string;
 
+    @Column()
+    tel: string
+
     @CreateDateColumn()
     createdAt: Date;
   }
