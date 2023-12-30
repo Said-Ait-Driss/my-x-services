@@ -1,0 +1,57 @@
+{
+  "npmScope": "said",
+  "projects": {
+    "auth": {
+      "projectType": "application",
+      "prefix": "auth"
+    },
+    "user": {
+        "projectType": "application",
+        "prefix": "user"
+    },
+    "store": {
+        "projectType": "application",
+        "prefix": "store"
+    },
+    "headquarter": {
+        "projectType": "application",
+        "prefix": "headquarter"
+    },
+    "contact_infos": {
+        "projectType": "application",
+        "prefix": "contact_infos"
+    },
+    "store_categories": {
+        "projectType": "application",
+        "prefix": "store_categories"
+    },
+    "picks": {
+        "projectType": "application",
+        "prefix": "picks"
+    },
+    "offers": {
+        "projectType": "application",
+        "prefix": "offers"
+    },
+    "orders": {
+        "projectType": "application",
+        "prefix": "orders"
+    },
+    "picks_order": {
+        "projectType": "application",
+        "prefix": "picks_order"
+    },
+    "orders_delivery": {
+        "projectType": "application",
+        "prefix": "orders_delivery"
+    },
+    "rabbitmq": {
+        "projectType": "library",
+        "prefix": "rabbitmq"
+    },
+    "utils": {
+        "projectType": "library",
+        "prefix": "utils"
+    }
+  }
+}

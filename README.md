@@ -29,12 +29,23 @@ my X application, the microservices engage in asynchronous communication to inte
     <li>for user service : <b> from http://localhost:9090/user to http://localhost:30030 </b></li>
 </ul>
 
+<h3>Message broker </h3>
+<h4>RabbitMQ</h4>
+<p> As Event bus used to facilitates  the exchange of events among services </p>
+<p>
+RabbitMQ, as a message broker, provides a way for different parts of a system to communicate with each other through the exchange of messages. In the context of an event-driven architecture, RabbitMQ allows components or services to publish events and subscribe to events they are interested in.
+</p>
 
-
-## each service run independently but all are packaged as monorepo apps
+## each service run independently in monorepo structure
 ### auth service
 ### user service
-### other services are on the way ...
+### store service
+### store-categories service
+### picks service
+### ordder service
+### headquarter service
+### order-delivery service
+### contact-infos service
 
 ## supported databases
 <ul>
@@ -44,9 +55,9 @@ my X application, the microservices engage in asynchronous communication to inte
 </ul>
 
 
-## example of running auth service
+## example of running user service
 ```
-npm run start:dev auth
+npm run start:dev user
 ```
 
 this will ensure running the auth service on development mode

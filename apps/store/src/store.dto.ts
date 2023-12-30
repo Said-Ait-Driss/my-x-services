@@ -1,36 +1,95 @@
-import {  IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { StoreInterface } from "./store.interface";
-import { IsImage } from "./image-validators";
-import { ObjectId } from "typeorm";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import {
+  CategoryInterface,
+  ContactInfoInterface,
+  StoreInterface,
+} from './store.interface';
+import { IsImage } from './image-validators';
+import { ObjectId } from 'typeorm';
+import { Type } from 'class-transformer';
+import { HeadquarterInterface } from './store.interface';
 
-export class CreateStoreDTO implements StoreInterface{
+class ContactInfoDto {
+  @IsString()
+  @IsNotEmpty()
+  contact_infos_id: string;
 
-    @IsNotEmpty()
-    @IsString()
-    readonly title: string;
-    
+  @IsString()
+  @IsNotEmpty()
+  address: string;
 
-    longitude: string;
-    latitude: string;
-    
-    @IsNotEmpty()
-    readonly headquarter_id: string;
-    contact_info_id: string;
+  @IsString()
+  @IsNotEmpty()
+  tel: string;
+}
 
-    @IsNotEmpty()
-    @IsString()
-    readonly store_category_id: string;
+class CategoryDto {
+  @IsString()
+  @IsNotEmpty()
+  store_category_id: string;
 
-    image: null | string
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-} 
+  @IsString()
+  @IsNotEmpty()
+  image: string;
+}
+
+
+class HeadquarterDto {
+  @IsString()
+  @IsNotEmpty()
+  headquarter_id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  image: string;
+}
+
+
+export class CreateStoreDTO implements StoreInterface {
+  @IsNotEmpty()
+  @IsString()
+  readonly title: string;
+
+  longitude: string;
+  latitude: string;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => HeadquarterDto)
+  readonly headquarter: HeadquarterInterface;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => ContactInfoDto)
+  contact_infos: ContactInfoInterface;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => CategoryDto)
+  store_category: CategoryInterface;
+
+  image: null | string;
+}
 
 export class UploadImageDTO {
-    @IsNotEmpty()
-    @IsImage()
-    image: Express.Multer.File | string;
+  @IsNotEmpty()
+  @IsImage()
+  image: Express.Multer.File | string;
 }
 
 export class ValidObjectIdDTO {
-    id: ObjectId
+  id: ObjectId;
 }

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, Min } from "class-validator";
+import { IsDecimal, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { HeadquarterInterface } from "./headquarter.interface";
 
 export class CreateHeadquarterDTO implements HeadquarterInterface {
@@ -14,3 +14,20 @@ export class CreateHeadquarterDTO implements HeadquarterInterface {
     @IsString()
     city: string;
 } 
+
+
+export class UpdateHeadquarterDTO implements HeadquarterInterface{
+    @IsString()
+    title: string;
+
+    image1: string;
+
+    city: string;
+}
+
+
+export class UpdateHeadquarterIDDTO {
+    @IsNotEmpty()
+    @IsDecimal()
+    id: number
+}
