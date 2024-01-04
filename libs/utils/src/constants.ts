@@ -5,6 +5,11 @@ export const myRabbitMqConfig = {
         extchange: 'store-service-exchange',
         name: 'STORE_SERVICE',
         queue: 'STORE_QUEUE',
+        clients: {
+            picks: {
+                queue: 'PICKS_QUEUE',
+            },
+        },
     },
     store_category: {
         queue: 'STORE_CATEGORIES_QUEUE',
@@ -33,6 +38,20 @@ export const myRabbitMqConfig = {
             },
             user: {
                 queue: 'USER_QUEUE',
+            },
+        },
+    },
+    picks: {
+        queue: 'PICKS_QUEUE',
+        name: 'PICKS_SERVICE',
+        client: {},
+    },
+    offers: {
+        queue: 'OFFERS_QUEUE',
+        name: 'OFFERS_SERVICE',
+        clients: {
+            picks: {
+                queue: 'PICKS_QUEUE',
             },
         },
     },

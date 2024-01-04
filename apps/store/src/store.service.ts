@@ -5,10 +5,14 @@ import { Store } from './store.schema';
 import { NotFoundException } from '@nestjs/common';
 import { CreateStoreDTO, ValidObjectIdDTO } from './store.dto';
 import { isValidObjectId } from 'mongoose';
+import { StoreRMQService } from './store.rmq.service';
 
 @Injectable()
 export class StoreService {
-    constructor(@InjectModel('Store') private readonly storeModel: Model<Store>) {}
+    constructor(
+        @InjectModel('Store') private readonly storeModel: Model<Store>,
+        private storeRabbitMQService: StoreRMQService,
+    ) {}
 
     getHello(): string {
         return 'Hello From store service !';
@@ -66,7 +70,18 @@ export class StoreService {
             throw new NotFoundException(`Store with id ${id} not found !`);
         }
 
-        return await this.storeModel.findByIdAndUpdate(id, store, { new: true }).exec();
+        const result = await this.storeModel.findByIdAndUpdate(id, store, { new: true }).exec();
+        if (result) {
+            let data = {
+                store: {
+                    ...store,
+                },
+                storeId: id,
+            };
+            this.storeRabbitMQService.sendMessage('STORE_UPDATED', JSON.stringify(data));
+        }
+
+        return result;
     }
 
     async delete(id: ValidObjectIdDTO): Promise<any> {
@@ -113,7 +128,7 @@ export class StoreService {
 
     async updateContactInfosData(newContactInfos: any): Promise<any> {
         const updateFields: Record<string, any> = {};
-        
+
         if (newContactInfos.contact_infos.adress !== undefined) {
             updateFields['contact_infos.adress'] = newContactInfos.contact_infos.adress;
         }

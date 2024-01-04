@@ -9,6 +9,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import { NotFoundException } from '@nestjs/common';
+import { MessagePattern, Ctx, RmqContext, Payload } from '@nestjs/microservices';
 
 const uploadFolder = path.join('./',__dirname, 'uploads');
 
@@ -23,17 +24,28 @@ export class PicksController {
   }
 
   @Post("create")
-  @UseInterceptors(FileInterceptor('image', {storage:diskStorage({
-    destination: uploadFolder,
-    filename(req, file, callback) {
-      callback(null,`${new Date().getTime()}-${file.originalname}`)
-    },
-  })}))
-  create(@UploadedFile() image: UploadImageDTO, @Body() picks: CreatePicksDTO ): Promise<Picks> {
-    if(!image)
-      throw new NotFoundException("image is required !")
-    return this.picksService.create(image,picks);
+  create( @Body() picks: CreatePicksDTO ): Promise<Picks> {
+    return this.picksService.create(picks);
   }
+
+
+  @Put('upload-image/:picks_id')
+  @UseInterceptors(
+      FileInterceptor('image', {
+          storage: diskStorage({
+              destination: uploadFolder,
+              filename(req, file, callback) {
+                  callback(null, `${new Date().getTime()}-${file.originalname}`);
+              },
+          }),
+      }),
+  )
+  uploadImage(@Param('picks_id') picks_id: ValidObjectIdDTO, @UploadedFile() image: UploadImageDTO) {
+      if (!image) throw new NotFoundException('image is required !');
+
+      return this.picksService.uploadedImage(picks_id, image);
+  }
+
 
   @Get(":id")
   findOne(@Param("id") id: ValidObjectIdDTO ): Promise<Picks> {
@@ -49,5 +61,19 @@ export class PicksController {
   delete(@Param("id") id: ValidObjectIdDTO ): Promise<Picks> {
     return this.picksService.delete(id);
   }
+
+  // events
+
+  @MessagePattern('STORE_UPDATED')
+  update_store_category(@Payload() data: any, @Ctx() context: RmqContext) {
+
+        let newStoreData = JSON.parse(data)
+        
+        console.log("newStoreData ",newStoreData); 
+
+        this.picksService.updateStoreData(newStoreData)
+
+        console.log(`Pattern: ${context.getPattern()}`);
+    }
 
 }
