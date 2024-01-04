@@ -3,7 +3,7 @@ import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservice
 import { myRabbitMqConfig } from 'utils/utils/constants';
 
 @Injectable()
-export class StoreRMQCategoriesService {
+export class OfferRMQService {
     private client: ClientProxy;
 
     constructor() {
@@ -11,14 +11,14 @@ export class StoreRMQCategoriesService {
             transport: Transport.RMQ,
             options: {
                 urls: [myRabbitMqConfig.rabbitMq_uri],
-                queue: 'STORE_QUEUE',
+                queue: myRabbitMqConfig.offers.clients.picks.queue,
             },
         });
     }
 
     sendMessage(pattern: string, message: string) {
-        console.log('store category message : ', message);
-
+        console.log(`Offers send message: ${message}`);
+        // Process the message as needed
         return this.client.emit(pattern, message);
     }
 }

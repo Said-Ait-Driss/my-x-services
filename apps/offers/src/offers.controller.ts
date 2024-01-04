@@ -40,12 +40,13 @@ export class OffersController {
     return this.offersService.getPickOffers(pick_id);
   }
 
-  @Put(':id')
+  @Put(':id/:pick_id')
   update(
-    @Param('id') id: ValidObjectIdDTO,
+    @Param('id') id: ValidObjectIdDTO
+    ,@Param('pick_id') pick_id:ValidObjectIdDTO
     @Body() offers: Offers,
   ): Promise<Offers> {
-    return this.offersService.update(id, offers);
+    return this.offersService.update(id, pick_id, offers);
   }
 
   @Delete(':id')
