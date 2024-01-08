@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common';
 import { isValidObjectId } from 'mongoose';
-import { OfferRMQService } from './offer.rmq.service';
+import { OfferRMQService } from './offers.rmq.service';
 
 @Injectable()
 export class OffersService {
@@ -20,7 +20,26 @@ export class OffersService {
 
     async create(offer: CreateOffersDTO): Promise<Offers> {
         const createdOffer = new this.OffersModel(offer);
-        return await createdOffer.save();
+        const result: any = await createdOffer.save();
+
+        if (result) {
+            let pick_Id = result.picks_id;
+            console.log('result ', result);
+            console.log('pick_Id ', pick_Id);
+
+            const lastOfferOfPick: any = await this.getLatest(pick_Id);
+            if (lastOfferOfPick) {
+                let data = {
+                    current_offer: {
+                        ...lastOfferOfPick._doc,
+                    },
+                    pick_Id,
+                };
+
+                this.offerRMQService.sendMessage('OFFER_UPDATED', JSON.stringify(data));
+            }
+        }
+        return result;
     }
 
     async findOne(id: ValidObjectIdDTO): Promise<Offers> {
@@ -81,9 +100,16 @@ export class OffersService {
         }).exec();
 
         if (result) {
-            const lastOfferOfPicksId = await this.getLatest(pick_id);
-            if (lastOfferOfPicksId) {
-                this.offerRMQService.sendMessage();
+            const lastOfferOfPick: any = await this.getLatest(pick_id);
+            if (lastOfferOfPick) {
+                let data = {
+                    current_offer: {
+                        ...lastOfferOfPick._doc,
+                    },
+                    pick_Id: pick_id,
+                };
+
+                this.offerRMQService.sendMessage('OFFER_UPDATED', JSON.stringify(data));
             }
         }
         return result;

@@ -27,6 +27,9 @@ export const myRabbitMqConfig = {
             store: {
                 queue: 'STORE_QUEUE',
             },
+            orders: {
+                queue: 'ORDERS_QUEUE',
+            },
         },
     },
     contact_infos: {
@@ -55,4 +58,21 @@ export const myRabbitMqConfig = {
             },
         },
     },
+
+    user: {
+        queue: 'USER_QUEUE',
+        name: 'USER_SERVICE',
+        clients: {
+            orders: {
+                queue: 'ORDERS_QUEUE',
+            },
+        },
+    },
+    orders:{
+        queue: 'ORDERS_QUEUE',
+        name: 'ORDERS_SERVICE',
+        clients: {
+
+        },
+    }
 };

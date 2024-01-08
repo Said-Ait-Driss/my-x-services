@@ -76,4 +76,15 @@ export class PicksController {
         console.log(`Pattern: ${context.getPattern()}`);
     }
 
+    @MessagePattern("OFFER_UPDATED")
+    update_current_offer(@Payload() data: any, @Ctx() context: RmqContext){
+      let newCurrentOffer = JSON.parse(data)
+
+      console.log("new offer : ",newCurrentOffer);
+      
+      this.picksService.updateOfferData(newCurrentOffer)
+
+      console.log(`Pattern: ${context.getPattern()}`);
+
+    }
 }
