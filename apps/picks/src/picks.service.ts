@@ -70,9 +70,25 @@ export class PicksService {
         return await this.picksModel.updateMany({ 'store.store_id': newStoreData.storeId }, { $set: updateFields }, { new: true }).exec();
     }
 
-    async updateOfferData( newOfferData: any ): Promise<any> {
-      const updateFields: Record<string, any> = {};
+    async updateOfferData(newOfferData: any): Promise<any> {
+        const updateFields: Record<string, any> = {};
 
-      
+        if (newOfferData.current_offer.price != undefined) {
+            updateFields['current_offer.price'] = newOfferData.current_offer.price;
+        }
+
+        if (newOfferData.current_offer.start_date != undefined) {
+            updateFields['current_offer.start_date'] = newOfferData.current_offer.start_date;
+        }
+
+        if (newOfferData.current_offer.end_date != undefined) {
+            updateFields['current_offer.end_date'] = newOfferData.current_offer.end_date;
+        }
+
+        if (newOfferData.current_offer.discount != undefined) {
+            updateFields['current_offer.discount'] = newOfferData.current_offer.discount;
+        }
+
+        return await this.picksModel.updateMany({ _id: newOfferData.pick_Id }, { $set: updateFields }, { new: true }).exec();
     }
 }

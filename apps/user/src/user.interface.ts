@@ -5,4 +5,5 @@ export interface UserInterface {
   email: string;
   headquarter_id: number;
   contact_info_id: number;
+  type: string
 }
