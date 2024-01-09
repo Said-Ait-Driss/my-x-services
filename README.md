@@ -22,6 +22,7 @@ my X application, the microservices engage in asynchronous communication to inte
     <li>Load Balancing</li>
     <li>Caching</li>
     <li>Logging and Auditing</li>
+    <li>Rate limiting</li>
 </ul>
 ## forwarding traffic to :
 <ul>
